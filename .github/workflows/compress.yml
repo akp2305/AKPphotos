@@ -1,105 +1,105 @@
-name: Optimize & Deploy to Pages
+# name: Optimize & Deploy to Pages
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+# permissions:
+#   contents: write
+#   pages: write
+#   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
+# concurrency:
+#   group: pages
+#   cancel-in-progress: false
 
-jobs:
-  deploy:
-    # Prevent the workflow from running again after its own commit.
-    if: github.actor != 'github-actions[bot]'
+# jobs:
+#   deploy:
+#     # Prevent the workflow from running again after its own commit.
+#     if: github.actor != 'github-actions[bot]'
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+#     environment:
+#       name: github-pages
+#       url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
 
-      - name: Install WebP
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y webp
+#       - name: Install WebP
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install -y webp
 
-      - name: Convert Images to WebP
-        run: |
-          find . -type f \( \
-            -iname "*.png" -o \
-            -iname "*.jpg" -o \
-            -iname "*.jpeg" \
-          \) | while read -r img; do
-            echo "Optimizing $img"
+#       - name: Convert Images to WebP
+#         run: |
+#           find . -type f \( \
+#             -iname "*.png" -o \
+#             -iname "*.jpg" -o \
+#             -iname "*.jpeg" \
+#           \) | while read -r img; do
+#             echo "Optimizing $img"
 
-            webp="${img%.*}.webp"
+#             webp="${img%.*}.webp"
 
-            cwebp -quiet -q 80 "$img" -o "$webp"
+#             cwebp -quiet -q 80 "$img" -o "$webp"
 
-            rm "$img"
-          done
+#             rm "$img"
+#           done
 
-      - name: Update HTML References
-        run: |
-          python3 <<'EOF'
-          from pathlib import Path
-          import re
+#       - name: Update HTML References
+#         run: |
+#           python3 <<'EOF'
+#           from pathlib import Path
+#           import re
 
-          # Convert only LOCAL image references.
-          # External URLs such as https://img.youtube.com/... are ignored.
+#           # Convert only LOCAL image references.
+#           # External URLs such as https://img.youtube.com/... are ignored.
 
-          pattern = re.compile(
-              r'(?<!https://)(?<!http://)([^"\']+?)\.(png|PNG|jpg|JPG|jpeg|JPEG)(?=["\'])'
-          )
+#           pattern = re.compile(
+#               r'(?<!https://)(?<!http://)([^"\']+?)\.(png|PNG|jpg|JPG|jpeg|JPEG)(?=["\'])'
+#           )
 
-          for html in Path(".").rglob("*.html"):
-              text = html.read_text(encoding="utf-8")
+#           for html in Path(".").rglob("*.html"):
+#               text = html.read_text(encoding="utf-8")
 
-              text = pattern.sub(
-                  lambda m: f"{m.group(1)}.webp",
-                  text
-              )
+#               text = pattern.sub(
+#                   lambda m: f"{m.group(1)}.webp",
+#                   text
+#               )
 
-              html.write_text(text, encoding="utf-8")
-          EOF
+#               html.write_text(text, encoding="utf-8")
+#           EOF
 
-      - name: Commit Optimized Images
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#       - name: Commit Optimized Images
+#         run: |
+#           git config user.name "github-actions[bot]"
+#           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add .
+#           git add .
 
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
+#           if git diff --cached --quiet; then
+#             echo "No changes to commit."
+#             exit 0
+#           fi
 
-          git commit -m "Optimize images to WebP"
-          git push
+#           git commit -m "Optimize images to WebP"
+#           git push
 
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v5
+#       - name: Setup GitHub Pages
+#         uses: actions/configure-pages@v5
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
+#       - name: Upload Pages Artifact
+#         uses: actions/upload-pages-artifact@v3
+#         with:
+#           path: .
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+#       - name: Deploy to GitHub Pages
+#         id: deployment
+#         uses: actions/deploy-pages@v5
