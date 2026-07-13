@@ -1,27 +1,46 @@
-name: Optimize Images
+name: Optimize & Convert Images
 
 on:
   push:
+    branches:
+      - main  # Change this to 'master' if your repository uses master instead of main
     paths:
       - '**/*.jpg'
+      - '**/*.jpeg'
       - '**/*.png'
 
 jobs:
   optimize:
     if: github.event.head_commit.message != 'Optimized images'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allows the bot to push the smaller images back to your repo
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: sudo apt-get install -y jpegoptim optipng
-
-      - name: Optimize images
+      - name: Install WebP Tool
         run: |
-          find . -name "*.jpg" -exec jpegoptim --max=85 {} \;
-          find . -name "*.png" -exec optipng {} \;
+          sudo apt-get update
+          sudo apt-get install -y webp
 
-      - name: Commit optimized images
+      - name: Convert PNG and JPG to WebP (80 Quality)
+        run: |
+          # Finds all images, converts them to webp at 80 quality, and removes old ones
+          find . -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | while read img; do
+            echo "Processing $img..."
+            cwebp -q 80 "$img" -o "${img%.*}.webp"
+            rm "$img"
+          done
+
+      - name: Update HTML references to .webp
+        run: |
+          # Automatically fixes your HTML links so they point to the new .webp images
+          find . -name "*.html" -exec sed -i 's/\.png/\.webp/g' {} +
+          find . -name "*.html" -exec sed -i 's/\.jpg/\.webp/g' {} +
+          find . -name "*.html" -exec sed -i 's/\.jpeg/\.webp/g' {} +
+
+      - name: Commit and Push Optimized Images
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
