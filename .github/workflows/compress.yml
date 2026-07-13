@@ -1,0 +1,47 @@
+name: Optimize Images via PR
+
+on:
+  push:
+    branches:
+      - main  # Change to master if your default branch is master
+  workflow_dispatch: # This allows you to manually click "Run workflow" in GitHub if it doesn't trigger!
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install WebP Tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+
+      - name: Convert Images to WebP (80 Quality)
+        run: |
+          # Find and convert all png, jpg, jpeg files
+          find . -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) | while read img; do
+            echo "Converting $img to WebP..."
+            cwebp -q 80 "$img" -o "${img%.*}.webp"
+            rm "$img"
+          done
+
+      - name: Update HTML links
+        run: |
+          find . -name "*.html" -exec sed -i 's/\.png/\.webp/g' {} +
+          find . -name "*.html" -exec sed -i 's/\.jpg/\.webp/g' {} +
+          find . -name "*.html" -exec sed -i 's/\.jpeg/\.webp/g' {} +
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Optimize images to 80% WebP"
+          title: "🤖 Optimized Images Gallery"
+          body: "This automated PR compresses your portfolio images down to 80% WebP format to save space and fix loading times."
+          branch: "compressed-images-patch"
+          base: "main" # Change to master if needed
