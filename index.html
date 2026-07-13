@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akanksha Priya | Multimedia Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght=0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config for Custom Fonts & Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        black: '#050505',
+                        zinc: {
+                            900: '#121214',
+                            950: '#0a0a0b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Premium custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+        
+        .img-hover-effect {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
+            filter: grayscale(20%) brightness(0.85);
+        }
+        .group:hover .img-hover-effect {
+            transform: scale(1.04);
+            filter: grayscale(0%) brightness(1);
+        }
+
+        /* Prevent background scroll when modal open */
+        .modal-open {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-black text-zinc-300 font-sans antialiased selection:bg-white selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 top-0 transition-all duration-300 backdrop-blur-md bg-black/70 border-b border-white/5 px-4 md:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-serif font-bold tracking-widest text-white">AKANKSHA PRIYA<span class="text-zinc-500">.</span></a>
+            <div class="hidden md:flex space-x-8 text-xs uppercase tracking-widest items-center text-zinc-400">
+                <a href="#gallery" class="hover:text-white transition-colors duration-300">Photography</a>
+                <a href="#cinema" class="hover:text-white transition-colors duration-300">Cinema</a>
+                <a href="#experience" class="hover:text-white transition-colors duration-300">Experience</a>
+                <button onclick="openModal()" class="border border-white/20 hover:border-white bg-white/5 text-white px-4 py-2 rounded-sm transition-all duration-300 tracking-widest uppercase text-[10px]">
+                    View CV
+                </button>
+            </div>
+            <!-- Mobile Menu button for CV -->
+            <button onclick="openModal()" class="md:hidden border border-white/20 bg-white/5 text-white px-3 py-1.5 rounded-sm text-xs tracking-widest uppercase">
+                CV
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-zinc-900 to-black z-0"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800/10 via-black to-black z-0"></div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1200">
+            <span class="text-xs uppercase tracking-[0.3em] text-zinc-500 block mb-4"><i class="fa-solid fa-location-dot mr-2"></i>Delhi, India</span>
+            <h1 class="text-4xl md:text-7xl lg:text-8xl font-serif text-white mb-6 tracking-tight">Visual Storyteller & Multimedia Creator</h1>
+            <p class="text-base md:text-lg text-zinc-400 font-light mb-10 max-w-xl mx-auto leading-relaxed">
+                Exploring the subtle alignment of nature, urban realities, and human connection through photography and documentary film.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#gallery" class="border border-white/20 px-6 py-3 uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all duration-500 min-w-[160px]">
+                    Portfolio
+                </a>
+                <button onclick="openModal()" class="bg-zinc-900 border border-zinc-800 px-6 py-3 uppercase tracking-widest text-xs hover:bg-zinc-800 text-white transition-all duration-500 min-w-[160px]">
+                    Interactive CV
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Grid Content -->
+    <main id="gallery" class="bg-black pt-12">
+        
+        <!-- 1. Rulers of the Sky -->
+        <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="mb-12 max-w-2xl" data-aos="fade-right">
+                <h2 class="text-2xl md:text-3xl font-serif text-white mb-3">01. Rulers of the Sky</h2>
+                <p class="text-sm text-zinc-400 italic font-light">A dynamic wildlife study capturing the sharp focus, powerful wingbeats, and predatory grace of black kites and urban crows in their natural elements.</p>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[280px]">
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="50">
+                    <img src="photography/Kite.JPG" alt="Black Kite Focus" class="w-full h-full object-cover img-hover-effect">
+                </div>
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                    <img src="photography/kite 1.JPG" alt="Kite Wingbeat" class="w-full h-full object-cover img-hover-effect">
+                </div>
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="150">
+                    <img src="photography/kite 3.JPG" alt="Kite Flight" class="w-full h-full object-cover img-hover-effect">
+                </div>
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="200">
+                    <img src="photography/crow.jpg" alt="Urban Crow Portrait" class="w-full h-full object-cover img-hover-effect">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Where Earth Meets Silence -->
+        <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="mb-12 max-w-2xl" data-aos="fade-right">
+                <h2 class="text-2xl md:text-3xl font-serif text-white mb-3">02. Where Earth Meets Silence</h2>
+                <p class="text-sm text-zinc-400 italic font-light">A poetic exploration of minimalist, mist-shrouded landscapes, capturing the quiet stillness of rural banks and endless green expanses.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-[300px] md:auto-rows-[400px]">
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="zoom-in" data-aos-delay="50">
+                    <img src="photography/landscape 1.jpg" alt="Mist Landscape 1" class="w-full h-full object-cover img-hover-effect">
+                </div>
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="photography/landscape 2.jpg" alt="Minimalist Bank" class="w-full h-full object-cover img-hover-effect">
+                </div>
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="zoom-in" data-aos-delay="150">
+                    <img src="photography/landscape 3.jpg" alt="Green Horizon" class="w-full h-full object-cover img-hover-effect">
+                </div>
+                <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="photography/landscape 4.jpg" alt="Quiet Atmosphere" class="w-full h-full object-cover img-hover-effect">
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 & 4. Avian Vignettes & Majesty in the Canopy -->
+        <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- 03 -->
+                <div>
+                    <div class="mb-8" data-aos="fade-up">
+                        <h2 class="text-2xl font-serif text-white mb-2">03. Avian Vignettes</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">A close-up exploration of native birdlife, highlighting the fragile grace, sharp expressions, and quiet moments of our feathered neighbors.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-[280px]">
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up">
+                            <img src="photography/Magpie Robin.jpeg" alt="Magpie Robin" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                            <img src="photography/Rose Ringed Parakeet.jpeg" alt="Rose Ringed Parakeet" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                    </div>
+                </div>
+                <!-- 04 -->
+                <div>
+                    <div class="mb-8" data-aos="fade-up" data-aos-delay="50">
+                        <h2 class="text-2xl font-serif text-white mb-2">04. Majesty in the Canopy</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">A majestic wildlife feature tracking the elegant poses, vivid plumage, and commanding presence of wild peacocks perched high within the forest canopy.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 auto-rows-[134px] md:auto-rows-[132px]">
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5 col-span-2 row-span-2" data-aos="fade-up">
+                            <img src="photography/Peacock.jpeg" alt="Peacock Profile" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up">
+                            <img src="photography/peacock 1.JPG" alt="Canopy Perch" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                            <img src="photography/Peacock2.jpeg" alt="Vivid Plumage" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 & 6. Faces of Joy & Tales of the Striped Forager -->
+        <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Portrait Section -->
+                <div class="lg:col-span-1">
+                    <div class="mb-8" data-aos="fade-right">
+                        <h2 class="text-2xl font-serif text-white mb-2">05. Faces of Joy</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">A heartfelt collection of portraiture capturing the raw innocence, bright smiles, and unfiltered wonder of childhood.</p>
+                    </div>
+                    <div class="group overflow-hidden bg-zinc-950 border border-white/5 h-[400px] md:h-[500px]" data-aos="fade-up">
+                        <img src="photography/portrait.JPG" alt="Childhood Portrait" class="w-full h-full object-cover object-top img-hover-effect">
+                    </div>
+                </div>
+                <!-- Squirrel Section -->
+                <div class="lg:col-span-2">
+                    <div class="mb-8" data-aos="fade-left">
+                        <h2 class="text-2xl font-serif text-white mb-2">06. Tales of the Striped Forager</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">A close-up wildlife series focusing on the nimble movements, alert nature, and endless curiosity of the Indian palm squirrel within its urban green habitats.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 auto-rows-[192px] md:auto-rows-[242px]">
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="50">
+                            <img src="photography/Squirrel.jpg" alt="Forager 1" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                            <img src="photography/Squirrel(1).jpg" alt="Forager 2" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="150">
+                            <img src="photography/Squirrel(2).jpg" alt="Forager 3" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="200">
+                            <img src="photography/Squirrel(3).jpg" alt="Forager 4" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Rhythms of the Concrete -->
+        <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="mb-12 max-w-2xl" data-aos="fade-right">
+                <h2 class="text-2xl md:text-3xl font-serif text-white mb-3">07. Rhythms of the Concrete</h2>
+                <p class="text-sm text-zinc-400 italic font-light">A compelling street photography series documenting the vibrant labor, daily transits, and candid interactions that define urban street life.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="space-y-4">
+                    <div class="group overflow-hidden bg-zinc-950 border border-white/5 h-[300px]" data-aos="fade-up">
+                        <img src="photography/street 1.jpg" alt="Street Scene" class="w-full h-full object-cover img-hover-effect">
+                    </div>
+                    <div class="group overflow-hidden bg-zinc-950 border border-white/5 h-[240px]" data-aos="fade-up" data-aos-delay="50">
+                        <img src="photography/street 4.jpg" alt="Street Labor Documented" class="w-full h-full object-cover img-hover-effect">
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="group overflow-hidden bg-zinc-950 border border-white/5 h-[220px]" data-aos="fade-up" data-aos-delay="100">
+                        <img src="photography/street 2.jpg" alt="Street Geometry" class="w-full h-full object-cover img-hover-effect">
+                    </div>
+                    <div class="group overflow-hidden bg-zinc-950 border border-white/5 h-[320px]" data-aos="fade-up" data-aos-delay="150">
+                        <img src="photography/street 5.JPG" alt="Transit Capture" class="w-full h-full object-cover img-hover-effect">
+                    </div>
+                </div>
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <div class="group overflow-hidden bg-zinc-950 border border-white/5 h-[350px] sm:h-[556px]" data-aos="fade-up" data-aos-delay="200">
+                        <img src="photography/street 3.jpg" alt="Candid Street Interaction" class="w-full h-full object-cover img-hover-effect">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8 & 9. Microscopic Worlds & Domestic Companions -->
+        <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <div class="mb-8" data-aos="fade-up">
+                        <h2 class="text-2xl font-serif text-white mb-2">08. Microscopic Worlds</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">A macro photography look into the intricate details of garden life, from pollen-dusted insects to the hidden textures of caterpillars and flora.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 auto-rows-[160px] md:auto-rows-[200px]">
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up"><img src="photography/Bee 1.JPG" alt="Macro Bee" class="w-full h-full object-cover img-hover-effect"></div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="50"><img src="photography/Bee 2.jpg" alt="Macro Honeybee" class="w-full h-full object-cover img-hover-effect"></div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100"><img src="photography/caterpillar 1.jpg" alt="Garden Textures" class="w-full h-full object-cover img-hover-effect"></div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="150"><img src="photography/flower bed.jpg" alt="Flora Detail" class="w-full h-full object-cover img-hover-effect"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-8" data-aos="fade-up" data-aos-delay="50">
+                        <h2 class="text-2xl font-serif text-white mb-2">09. Domestic Companions</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">Candid and intimate portraits capturing the quiet curiosity, independent spirit, and soft textures of neighborhood cats.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 auto-rows-[336px] md:auto-rows-[416px]">
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up">
+                            <img src="photography/cat 1.jpg" alt="Feline Portrait 1" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                            <img src="photography/cat 2.jpg" alt="Feline Portrait 2" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10 & 11. Echoes of the Past & Commercial Displays -->
+        <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <div class="mb-8" data-aos="fade-up">
+                        <h2 class="text-2xl font-serif text-white mb-2">10. Echoes of the Past</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">An architectural exploration of historic monuments, focusing on structural geometry, weathered stone textures, and heritage storytelling.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-[260px]">
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up">
+                            <img src="photography/historical monuments 1.jpg" alt="Heritage Stone Detail" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                            <img src="photography/historical monuments 2.jpg" alt="Structural Arch" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-8" data-aos="fade-up" data-aos-delay="50">
+                        <h2 class="text-2xl font-serif text-white mb-2">11. Commercial Displays</h2>
+                        <p class="text-sm text-zinc-400 italic font-light">Clean and sharp studio product photography focusing on commercial presentation, lighting precision, and material detail.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-[260px]">
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up">
+                            <img src="photography/Akanksha_Product_1(1).JPG" alt="Studio Presentation 1" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                        <div class="group overflow-hidden bg-zinc-950 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                            <img src="photography/Akanksha_Product_2(1).JPG" alt="Studio Presentation 2" class="w-full h-full object-cover img-hover-effect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12 & 13. Cinema Section (Sleek Lightbox Trigger Framework) -->
+        <section id="cinema" class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-xs uppercase tracking-widest text-zinc-500 block mb-2">Moving Image Work</span>
+                <h2 class="text-3xl md:text-5xl font-serif text-white">Motion & Direction</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Promo 12 -->
+                <div data-aos="fade-right">
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500 block mb-1">12. Promotional Media</span>
+                    <h3 class="text-xl font-serif text-white mb-2">Cinematic Previews (PROMO LCA 2025)</h3>
+                    <p class="text-xs text-zinc-400 font-light mb-6">A rhythmic and high-energy musical promotional showcase built on core themes of personal adventure, timing, companionship, and celestial wonders.</p>
+                    
+                    <!-- Dynamic Trigger Layout -->
+                    <div onclick="openVideoTheater('ROGhgz8qKb0')" class="group relative pt-[56.25%] bg-zinc-900 border border-white/5 rounded-sm overflow-hidden shadow-2xl cursor-pointer">
+                        <img src="https://img.youtube.com/vi/ROGhgz8qKb0/maxresdefault.jpg" alt="Promo Thumbnail" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-14 h-14 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-black">
+                                <i class="fa-solid fa-play text-lg ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Short Film 13 -->
+                <div data-aos="fade-left">
+                    <span class="text-[10px] uppercase tracking-widest text-zinc-500 block mb-1">13. Independent Film Production</span>
+                    <h3 class="text-xl font-serif text-white mb-2">KHEL — Short Film</h3>
+                    <p class="text-xs text-zinc-400 font-light mb-6">An emotional narrative exploration mapping the intersection of sports, grit, competitive struggles, human trust, and the bonds of friendship. Roles: Director, Cinematographer, Editor.</p>
+                    
+                    <!-- Dynamic Trigger Layout -->
+                    <div onclick="openVideoTheater('i1T090PPQ9Q')" class="group relative pt-[56.25%] bg-zinc-900 border border-white/5 rounded-sm overflow-hidden shadow-2xl cursor-pointer">
+                        <img src="https://img.youtube.com/vi/i1T090PPQ9Q/maxresdefault.jpg" alt="Khel Short Film Thumbnail" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-14 h-14 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-black">
+                                <i class="fa-solid fa-play text-lg ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Overview & Technical Matrix -->
+        <section id="experience" class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div data-aos="fade-up">
+                    <h3 class="text-xs uppercase tracking-widest text-zinc-500 mb-6">Expertise Matrix</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-sm font-medium text-white mb-2">Production & Capture</h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">Videography, Cinematography, Field Documentation, Architectural & Wildlife Documentation, Event Coverage.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white mb-2">Post & Execution</h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">Adobe Premiere Pro, After Effects (Basic), Photoshop, Audition, Audacity, Canva, Capcut.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white mb-2">Strategic Communication</h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">Social Media Architecture, Digital Storytelling, Outreach Strategy, Research Foundations, Cross-functional Coordination.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xs uppercase tracking-widest text-zinc-500 mb-6">Selected Industry Engagement</h3>
+                    <div class="space-y-6 border-l border-zinc-800 pl-4 ml-1">
+                        <div class="relative">
+                            <span class="text-[10px] tracking-wider text-zinc-500 block">Nov 2025 — May 2026</span>
+                            <h4 class="text-sm font-medium text-white">Centre for Professional Development in Higher Education (DU)</h4>
+                            <p class="text-xs text-zinc-400 mt-1">Managed production operational logic, handled dynamic stakeholder communication arrays, system updates, and systematic participant dataset custody.</p>
+                        </div>
+                        <div class="relative">
+                            <span class="text-[10px] tracking-wider text-zinc-500 block">July — Nov 2025</span>
+                            <h4 class="text-sm font-medium text-white">Budding Mariner</h4>
+                            <p class="text-xs text-zinc-400 mt-1">Engineered over 100 high-fidelity pedagogical diagrams and structured digital learning presentations from technical, complex raw datasets.</p>
+                        </div>
+                        <div class="relative">
+                            <span class="text-[10px] tracking-wider text-zinc-500 block">June — July 2025</span>
+                            <h4 class="text-sm font-medium text-white">New Delhi Nature Society (NDNS)</h4>
+                            <p class="text-xs text-zinc-400 mt-1">Produced high-engagement micro-documentary short forms, thematic audio podcasts, and on-site media configurations for strategic conservation advocacy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 border-t border-white/5 text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-xl font-serif text-white tracking-widest mb-6">AKANKSHA PRIYA</h2>
+            
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-zinc-400 mb-8 font-light">
+                <a href="mailto:aziel231105@gmail.com" class="hover:text-white transition-colors"><i class="fa-regular fa-envelope mr-2 text-zinc-600"></i>aziel231105@gmail.com</a>
+                <a href="tel:+918540916141" class="hover:text-white transition-colors"><i class="fa-solid fa-phone mr-2 text-zinc-600"></i>+91 8540916141</a>
+                <a href="https://www.linkedin.com/in/akanksha-priya-46048a3b3/" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in mr-2 text-zinc-600"></i>LinkedIn</a>
+                <a href="https://github.com/akp2305" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github mr-2 text-zinc-600"></i>GitHub</a>
+            </div>
+            
+            <p class="text-[11px] text-zinc-600 tracking-widest uppercase">&copy; 2026 Akanksha Priya. Crafted with absolute precision.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE CV MODAL POPUP -->
+    <div id="cvModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 md:p-6 bg-black/85 backdrop-blur-md">
+        <div class="bg-zinc-950 border border-white/10 w-full max-w-4xl max-h-[90vh] rounded-sm shadow-2xl flex flex-col overflow-hidden relative">
+            <div class="flex justify-between items-center px-6 py-4 border-b border-white/10 bg-zinc-950 z-10">
+                <div>
+                    <h2 class="text-lg font-serif text-white tracking-wide">Curriculum Vitae</h2>
+                    <p class="text-[10px] text-zinc-500 uppercase tracking-widest">Akanksha Priya &bull; Delhi, India</p>
+                </div>
+                <button onclick="closeModal()" class="text-zinc-400 hover:text-white text-xl p-2 focus:outline-none transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable CV Context -->
+            <div class="overflow-y-auto p-6 md:p-8 space-y-8 text-xs leading-relaxed text-zinc-300">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-zinc-900/50 p-4 border border-white/5 rounded-sm">
+                    <div class="space-y-1">
+                        <p class="text-white font-medium">Akanksha Priya</p>
+                        <p class="text-zinc-400"><i class="fa-solid fa-location-dot mr-2 text-zinc-600"></i>Delhi, India</p>
+                        <p class="text-zinc-400"><i class="fa-regular fa-calendar mr-2 text-zinc-600"></i>DOB: 23/11/2005</p>
+                    </div>
+                    <div class="space-y-1 sm:text-right flex flex-col sm:items-end">
+                        <a href="mailto:aziel231105@gmail.com" class="text-zinc-400 hover:text-white"><i class="fa-regular fa-envelope mr-2 text-zinc-600"></i>aziel231105@gmail.com</a>
+                        <a href="tel:+918540916141" class="text-zinc-400 hover:text-white"><i class="fa-solid fa-phone mr-2 text-zinc-600"></i>+91 8540916141</a>
+                        <div class="pt-1 flex gap-3 text-sm">
+                            <a href="https://www.linkedin.com/in/akanksha-priya-46048a3b3/" target="_blank" class="text-zinc-500 hover:text-white"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://github.com/akp2305" target="_blank" class="text-zinc-500 hover:text-white"><i class="fa-brands fa-square-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div>
+                    <h3 class="text-white font-serif text-sm tracking-wider uppercase border-b border-white/5 pb-2 mb-3">Educational Profiles</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-zinc-400 min-w-[500px]">
+                            <thead>
+                                <tr class="text-white border-b border-white/10 text-[11px]">
+                                    <th class="pb-2 font-medium">Course / Examination</th>
+                                    <th class="pb-2 font-medium">Institution / University</th>
+                                    <th class="pb-2 font-medium">Year</th>
+                                    <th class="pb-2 font-medium text-right">Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="py-3 text-white">B.A. (Hons) Multimedia & Mass Comm</td>
+                                    <td class="py-3">Indraprastha College for Women (DU)</td>
+                                    <td class="py-3">2026</td>
+                                    <td class="py-3 text-right text-white font-medium">8.59 CGPA</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 text-white">CBSE (Class 12th Science)</td>
+                                    <td class="py-3">Mother Teresa Academy (Darbhanga)</td>
+                                    <td class="py-3">2023</td>
+                                    <td class="py-3 text-right font-medium">75%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 text-white">CBSE (Class 10th)</td>
+                                    <td class="py-3">DAV Public School (Darbhanga)</td>
+                                    <td class="py-3">2021</td>
+                                    <td class="py-3 text-right font-medium">90%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Internships -->
+                <div>
+                    <h3 class="text-white font-serif text-sm tracking-wider uppercase border-b border-white/5 pb-2 mb-3">Professional Internships</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                                <span class="text-white">Centre for Professional Development in Higher Education (DU)</span>
+                                <span class="text-xs">Nov 2025 — May 2026</span>
+                            </div>
+                            <p class="text-zinc-400 pl-3 border-l border-zinc-800">Managed backend technical configurations for online educational initiatives, synchronized data matrices, and handled core participant communication platforms.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                                <span class="text-white">Budding Mariner</span>
+                                <span class="text-xs">July — Nov 2025</span>
+                            </div>
+                            <p class="text-zinc-400 pl-3 border-l border-zinc-800">Engineered over 100 discrete technical visual assets and educational data layouts constructed from comprehensive raw datasets.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                                <span class="text-white">A. P. Khanna Textiles Pvt. Ltd</span>
+                                <span class="text-xs">July 2025</span>
+                            </div>
+                            <p class="text-zinc-400 pl-3 border-l border-zinc-800">Assisted in creative corporate digital architecture development and managed social narrative video distribution patterns.</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                                <span class="text-white">NDNS (New Delhi Nature Society)</span>
+                                <span class="text-xs">June — July 2025</span>
+                            </div>
+                            <p class="text-zinc-400 pl-3 border-l border-zinc-800">Produced distinct micro-documentary features, visual reports, and ecosystem protection podcasts alongside real-world documentary operations.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Projects -->
+                <div>
+                    <h3 class="text-white font-serif text-sm tracking-wider uppercase border-b border-white/5 pb-2 mb-3">Academic Project Track</h3>
+                    <ul class="space-y-2 pl-4 list-disc marker:text-zinc-700 text-zinc-400">
+                        <li><strong class="text-white">Short Film (KHEL):</strong> Spearheaded execution metrics as Director, Principal Cinematographer, and Editor.</li>
+                        <li><strong class="text-white">News Package:</strong> Managed local field capture and post-production processing tracking architectural spaces.</li>
+                        <li><strong class="text-white">Stray Dog Welfare Campaign:</strong> Generated full PSA design systems, script lines, and interactive communication layout tools.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-white/10 bg-zinc-900/40 flex justify-end">
+                <button onclick="closeModal()" class="bg-zinc-800 text-white hover:bg-zinc-700 px-5 py-2 text-[11px] uppercase tracking-widest rounded-sm transition-colors">
+                    Close Layout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PURE LIGHTBOX CINEMA THEATER POPUP -->
+    <div id="videoTheaterModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl transition-all duration-300">
+        <button onclick="closeVideoTheater()" class="absolute top-6 right-6 text-zinc-400 hover:text-white text-3xl z-50 transition-colors">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="w-full max-w-5xl aspect-video bg-zinc-950 border border-white/10 rounded-sm overflow-hidden shadow-2xl relative">
+            <iframe id="theaterIframe" class="absolute inset-0 w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 80,
+            duration: 900,
+            easing: 'ease-out-cubic',
+        });
+
+        // CV Modal Framework
+        const cvModal = document.getElementById('cvModal');
+        function openModal() {
+            cvModal.classList.remove('hidden');
+            cvModal.classList.add('flex');
+            document.body.classList.add('modal-open');
+        }
+        function closeModal() {
+            cvModal.classList.add('hidden');
+            cvModal.classList.remove('flex');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Advanced Video Lightbox Controls
+        const videoTheaterModal = document.getElementById('videoTheaterModal');
+        const theaterIframe = document.getElementById('theaterIframe');
+
+        function openVideoTheater(youtubeId) {
+            // Generates secure clean-cookie streaming path dynamically on execution to block Error 153 layout checks
+            theaterIframe.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&modestbranding=1&rel=0`;
+            videoTheaterModal.classList.remove('hidden');
+            videoTheaterModal.classList.add('flex');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeVideoTheater() {
+            videoTheaterModal.classList.add('hidden');
+            videoTheaterModal.classList.remove('flex');
+            theaterIframe.src = ""; // Flushes memory immediately to terminate background stream
+            document.body.classList.remove('modal-open');
+        }
+
+        // Close on global external wrapper target clicks
+        window.addEventListener('click', function(e) {
+            if (e.target === cvModal) closeModal();
+            if (e.target === videoTheaterModal) closeVideoTheater();
+        });
+    </script>
+</body>
+</html>
