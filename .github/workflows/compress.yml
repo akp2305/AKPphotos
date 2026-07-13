@@ -17,6 +17,9 @@ concurrency:
 
 jobs:
   deploy:
+    # Prevent the workflow from running again after its own commit.
+    if: github.actor != 'github-actions[bot]'
+
     runs-on: ubuntu-latest
 
     environment:
@@ -52,8 +55,27 @@ jobs:
 
       - name: Update HTML References
         run: |
-          find . -name "*.html" -exec sed -Ei \
-            's/\.(png|PNG|jpg|JPG|jpeg|JPEG)/.webp/g' {} +
+          python3 <<'EOF'
+          from pathlib import Path
+          import re
+
+          # Convert only LOCAL image references.
+          # External URLs such as https://img.youtube.com/... are ignored.
+
+          pattern = re.compile(
+              r'(?<!https://)(?<!http://)([^"\']+?)\.(png|PNG|jpg|JPG|jpeg|JPEG)(?=["\'])'
+          )
+
+          for html in Path(".").rglob("*.html"):
+              text = html.read_text(encoding="utf-8")
+
+              text = pattern.sub(
+                  lambda m: f"{m.group(1)}.webp",
+                  text
+              )
+
+              html.write_text(text, encoding="utf-8")
+          EOF
 
       - name: Commit Optimized Images
         run: |
@@ -67,7 +89,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Optimize images to WebP [skip ci]"
+          git commit -m "Optimize images to WebP"
           git push
 
       - name: Setup GitHub Pages
