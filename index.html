@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Akanksha Priya | Multimedia Portfolio</title>
     
     <!-- Tailwind CSS -->
@@ -68,7 +68,9 @@
 
         /* Prevent background scroll when modal open */
         .modal-open {
-            overflow: hidden;
+            overflow: hidden !important;
+            position: fixed;
+            width: 100%;
         }
     </style>
 </head>
@@ -116,7 +118,7 @@
     </header>
 
     <!-- Main Grid Content -->
-    <main id="gallery" class="bg-black pt-12 w-full max-w-full">
+    <main id="gallery" class="bg-black pt-12 w-full max-w-full overflow-hidden">
         
         <!-- 1. Rulers of the Sky -->
         <section class="py-20 px-4 md:px-12 max-w-7xl mx-auto border-t border-white/5">
@@ -511,7 +513,7 @@
                 <!-- Education -->
                 <div>
                     <h3 class="text-white font-serif text-sm tracking-wider uppercase border-b border-white/5 pb-2 mb-3">Educational Profiles</h3>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto w-full max-w-full block">
                         <table class="w-full text-left text-zinc-400 min-w-[500px]">
                             <thead>
                                 <tr class="text-white border-b border-white/10 text-[11px]">
@@ -550,30 +552,30 @@
                     <h3 class="text-white font-serif text-sm tracking-wider uppercase border-b border-white/5 pb-2 mb-3">Professional Internships</h3>
                     <div class="space-y-4">
                         <div>
-                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                            <div class="flex flex-col sm:flex-row justify-between text-zinc-400 font-medium mb-1">
                                 <span class="text-white">Centre for Professional Development in Higher Education (DU)</span>
-                                <span class="text-xs">Nov 2025 — May 2026</span>
+                                <span class="text-xs mt-0.5 sm:mt-0">Nov 2025 — May 2026</span>
                             </div>
                             <p class="text-zinc-400 pl-3 border-l border-zinc-800 break-words">Managed backend technical configurations for online educational initiatives, synchronized data matrices, and handled core participant communication platforms.</p>
                         </div>
                         <div>
-                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                            <div class="flex flex-col sm:flex-row justify-between text-zinc-400 font-medium mb-1">
                                 <span class="text-white">Budding Mariner</span>
-                                <span class="text-xs">July — Nov 2025</span>
+                                <span class="text-xs mt-0.5 sm:mt-0">July — Nov 2025</span>
                             </div>
                             <p class="text-zinc-400 pl-3 border-l border-zinc-800 break-words">Engineered over 100 discrete technical visual assets and educational data layouts constructed from comprehensive raw datasets.</p>
                         </div>
                         <div>
-                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                            <div class="flex flex-col sm:flex-row justify-between text-zinc-400 font-medium mb-1">
                                 <span class="text-white">A. P. Khanna Textiles Pvt. Ltd</span>
-                                <span class="text-xs">July 2025</span>
+                                <span class="text-xs mt-0.5 sm:mt-0">July 2025</span>
                             </div>
                             <p class="text-zinc-400 pl-3 border-l border-zinc-800 break-words">Assisted in creative corporate digital architecture development and managed social narrative video distribution patterns.</p>
                         </div>
                         <div>
-                            <div class="flex justify-between text-zinc-400 font-medium mb-1">
+                            <div class="flex flex-col sm:flex-row justify-between text-zinc-400 font-medium mb-1">
                                 <span class="text-white">NDNS (New Delhi Nature Society)</span>
-                                <span class="text-xs">June — July 2025</span>
+                                <span class="text-xs mt-0.5 sm:mt-0">June — July 2025</span>
                             </div>
                             <p class="text-zinc-400 pl-3 border-l border-zinc-800 break-words">Produced distinct micro-documentary features, visual reports, and ecosystem protection podcasts alongside real-world documentary operations.</p>
                         </div>
