@@ -398,7 +398,6 @@
                 
                         <img
                             src="https://img.youtube.com/vi/i1T090PPQ9Q/hqdefault.jpg"
-
                             alt="KHEL Short Film"
                             loading="lazy"
                             class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
@@ -610,6 +609,16 @@
         </div>
     </div>
 
+    <!-- PURE LIGHTBOX IMAGE THEATER POPUP -->
+    <div id="imageTheaterModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/95 backdrop-blur-xl transition-all duration-300">
+        <button onclick="closeImageTheater()" class="absolute top-6 right-6 text-zinc-400 hover:text-white text-3xl z-50 transition-colors">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-full max-h-[90vh] flex items-center justify-center relative">
+            <img id="theaterImage" class="max-w-full max-h-[85vh] object-contain rounded-sm shadow-2xl" src="" alt="">
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -638,7 +647,6 @@
         const theaterIframe = document.getElementById('theaterIframe');
 
         function openVideoTheater(youtubeId) {
-            // Generates secure clean-cookie streaming path dynamically on execution to block Error 153 layout checks
             theaterIframe.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&modestbranding=1&rel=0`;
             videoTheaterModal.classList.remove('hidden');
             videoTheaterModal.classList.add('flex');
@@ -648,14 +656,42 @@
         function closeVideoTheater() {
             videoTheaterModal.classList.add('hidden');
             videoTheaterModal.classList.remove('flex');
-            theaterIframe.src = ""; // Flushes memory immediately to terminate background stream
+            theaterIframe.src = ""; 
             document.body.classList.remove('modal-open');
         }
 
-        // Close on global external wrapper target clicks
+        // Advanced Image Lightbox Controls
+        const imageTheaterModal = document.getElementById('imageTheaterModal');
+        const theaterImage = document.getElementById('theaterImage');
+
+        function openImageTheater(src, alt) {
+            theaterImage.src = src;
+            theaterImage.alt = alt;
+            imageTheaterModal.classList.remove('hidden');
+            imageTheaterModal.classList.add('flex');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeImageTheater() {
+            imageTheaterModal.classList.add('hidden');
+            imageTheaterModal.classList.remove('flex');
+            theaterImage.src = "";
+            document.body.classList.remove('modal-open');
+        }
+
+        // Automatically bind dynamic click listeners to all matching gallery elements
+        document.querySelectorAll('img.img-hover-effect').forEach(img => {
+            img.classList.add('cursor-pointer');
+            img.addEventListener('click', function() {
+                openImageTheater(this.src, this.alt);
+            });
+        });
+
+        // Global key/click external wrapper handler to close models
         window.addEventListener('click', function(e) {
             if (e.target === cvModal) closeModal();
             if (e.target === videoTheaterModal) closeVideoTheater();
+            if (e.target === imageTheaterModal) closeImageTheater();
         });
     </script>
 </body>
